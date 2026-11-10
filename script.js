@@ -5,6 +5,9 @@ const message = document.querySelector("#message");
 const assignmentList = document.querySelector("#assignment-list");
 const emptyMessage = document.querySelector("#empty-message");
 const clearButton = document.querySelector("#clear-button");
+const csvFileInput = document.querySelector("#csv-file");
+const importButton = document.querySelector("#import-button");
+const importReport = document.querySelector("#import-report");
 
 let assignments = loadAssignments();
 
@@ -106,6 +109,73 @@ clearButton.addEventListener("click", () => {
   saveAssignments();
   renderAssignments();
   message.textContent = "All assignments were cleared.";
+});
+
+function addReportList(title, items) {
+  if (items.length === 0) {
+    return;
+  }
+
+  const heading = document.createElement("p");
+  const list = document.createElement("ul");
+  heading.textContent = title;
+
+  items.forEach((text) => {
+    const item = document.createElement("li");
+    item.textContent = text;
+    list.append(item);
+  });
+
+  importReport.append(heading, list);
+}
+
+function showImportResults(result) {
+  importReport.innerHTML = "";
+  const summary = document.createElement("p");
+  summary.className = "report-summary";
+
+  if (result.fileErrors.length > 0) {
+    summary.textContent = "The file was not imported.";
+    importReport.append(summary);
+    addReportList("File problem:", result.fileErrors);
+    return;
+  }
+
+  summary.textContent = `${result.loaded.length} rows loaded, ${result.rejected.length} rows rejected, ${result.warnings.length} warnings.`;
+  importReport.append(summary);
+
+  const rejectedMessages = [];
+  result.rejected.forEach((rejectedRow) => {
+    rejectedRow.errors.forEach((error) => {
+      rejectedMessages.push(`Row ${rejectedRow.rowNumber}, ${error.column}: ${error.message}`);
+    });
+  });
+  addReportList("Rejected rows:", rejectedMessages);
+
+  const warningMessages = result.warnings.map((warning) => `Row ${warning.rowNumber}: ${warning.message}`);
+  addReportList("Warnings:", warningMessages);
+}
+
+importButton.addEventListener("click", async () => {
+  const file = csvFileInput.files[0];
+  if (!file) {
+    importReport.textContent = "Choose a CSV file first.";
+    return;
+  }
+
+  const text = await file.text();
+  const result = StudyPlannerValidation.validateFile(text, new Date());
+
+  result.loaded.forEach((item) => {
+    assignments.push({
+      name: `${item.row.assignment} (${item.row.course})`,
+      dueDate: item.row.due_date
+    });
+  });
+
+  saveAssignments();
+  renderAssignments();
+  showImportResults(result);
 });
 
 renderAssignments();
