@@ -1,0 +1,26 @@
+due_date,course,assignment,priority,estimated_hours
+2026-11-12,HIST 1510,Reading response,Medium,2
+11/14/2026,CS 1110,Problem set 5,High,4
+2026-11-16,cs 1110,Lab prep,Low,1.5
+2026-11-18,ECON 1110,Quiz review,high ,2
+2026-11-20,MATH 1920,Practice problems,Medium,3 hours
+2026-11-21,,Lab report,High,5
+2026-11-12,HIST 1510,Reading response,Medium,2
+2025-11-18,HIST 1510,Old essay,Low,2
+2026-12-15,CS 1110,Final project,High,40
+2026-11-22,BIO 1350,,Medium,2
+2026-11-23,ECON 1110,Midterm review,Urgent,6
+2026-11-24,MATH 1920,Worksheet 8,Medium,-2
+2026-11-25,BIO 1350,Chapter quiz,Low,0
+2026-11-27,HIST 1510,Primary source notes,Medium,$4
+Nov 28 2026,CS 1110,Debugging exercise,High,3
+2026-11-29,MATH 1920  ,Vector homework,Medium,4
+due_date,course,assignment,priority,estimated_hours
+2026-12-01,BIO 1350,Genetics worksheet,Low,2.5
+2026-02-30,HIST 1510,Archive visit notes,Medium,3
+2026-12-04,CS 1110,Recursion practice,,4
+2026-12-06,ECON 1110,Policy memo,High,
+2026-12-08,MATH 1920,Final review,MEDIUM,8
+2027-01-20,BIO 1350,Winter reading,Low,6
+2026-12-10,HIST 1510,"Presentation, final",High,5
+,TOTAL,,,
