@@ -17,12 +17,12 @@ These tests were completed using made-up assignment names.
 | # | Kind | What I do | What should happen | What happened | Pass? |
 |---|---|---|---|---|---|
 | 1 | Normal | Add "History essay" with a future due date | It appears with the correct number of days remaining | It appeared with the correct number of days remaining | Yes |
-| 2 | Normal | Add a second assignment due sooner | Both appear in due-date order | Both appeared in due-date order | Yes |
-| 3 | Edge | Add an assignment due today | It appears with "Due today" | It appeared with "Due today" | Yes |
-| 4 | Edge | Refresh after adding assignments | Saved assignments remain on the page | The assignments remained after refresh | Yes |
-| 5 | Wrong input | Submit with a blank name or date | A message asks for both fields and nothing is added | The message appeared and nothing was added | Yes |
+| 2 | Wrong input | Submit with a blank name or date | A message asks for both fields and nothing is added | The message appeared and nothing was added | Yes |
+| 3 | Edge | Refresh after adding assignments | Saved assignments remain on the page | The assignments remained after refresh | Yes |
+| 4 | Normal | Add a second assignment due sooner | Both appear in due-date order | Both appeared in due-date order | Yes |
+| 5 | Edge | Add an assignment due today | It appears with "Due today" | It appeared with "Due today" | Yes |
 
-The first three project requirements are covered by tests 1, 5, and 4:
+The first three tests are the three project requirements:
 
 1. Adding an assignment with a valid name and due date shows it with the correct number of days remaining.
 2. Leaving the name or due date blank shows a message and adds nothing.
