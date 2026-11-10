@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Planner Data Cleaning</title>
+  <link rel="stylesheet" href="page.css">
+</head>
+<body>
+  <main>
+    <h1>Data Cleaning Check</h1>
+    <p>This page runs the cleaning rules against <code>raw.csv</code> and compares the result with <code>clean.csv</code>.</p>
+
+    <section>
+      <h2>Row check</h2>
+      <p id="row-check">Checking files...</p>
+      <p id="file-check"></p>
+    </section>
+
+    <section>
+      <h2>Removed or set aside</h2>
+      <ul id="removed-list"></ul>
+    </section>
+
+    <section>
+      <h2>Kept with a flag</h2>
+      <ul id="flag-list"></ul>
+    </section>
+
+    <p><a href="tests.html">Open the validation tests</a></p>
+  </main>
+
+  <script src="csv.js"></script>
+  <script src="clean.js"></script>
+  <script>
+    Promise.all([
+      fetch("raw.csv").then((response) => response.text()),
+      fetch("clean.csv").then((response) => response.text())
+    ]).then(([rawText, committedCleanText]) => {
+      const result = StudyPlannerCleaning.cleanRows(rawText);
+      const accountedFor = result.rawCount === result.cleanRows.length + result.removed.length;
+      const generatedText = result.csv.trim().replace(/\r\n/g, "\n");
+      const committedText = committedCleanText.trim().replace(/\r\n/g, "\n");
+      const filesMatch = generatedText === committedText;
+
+      const rowCheck = document.querySelector("#row-check");
+      rowCheck.textContent = `${result.rawCount} raw rows = ${result.cleanRows.length} clean rows + ${result.removed.length} removed or set aside: ${accountedFor ? "PASS" : "FAIL"}`;
+      rowCheck.className = accountedFor ? "pass" : "fail";
+
+      const fileCheck = document.querySelector("#file-check");
+      fileCheck.textContent = `Generated data matches clean.csv: ${filesMatch ? "PASS" : "FAIL"}`;
+      fileCheck.className = filesMatch ? "pass" : "fail";
+
+      result.removed.forEach((item) => {
+        const listItem = document.createElement("li");
+        listItem.textContent = `Row ${item.rowNumber}: ${item.reason}`;
+        document.querySelector("#removed-list").append(listItem);
+      });
+
+      result.flags.forEach((flag) => {
+        const listItem = document.createElement("li");
+        listItem.textContent = flag;
+        document.querySelector("#flag-list").append(listItem);
+      });
+    }).catch(() => {
+      const rowCheck = document.querySelector("#row-check");
+      rowCheck.textContent = "Could not load the CSV files. Open this page from the live site.";
+      rowCheck.className = "fail";
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+body {
+  margin: 0;
+  background: #f4f6f8;
+  color: #222;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  width: min(92%, 850px);
+  margin: 40px auto;
+  padding: 28px;
+  background: white;
+  border: 1px solid #d9dee3;
+  border-radius: 8px;
+}
+
+h1,
+h2 {
+  margin-top: 0;
+}
+
+section {
+  margin-top: 28px;
+}
+
+.pass {
+  color: #137333;
+  font-weight: bold;
+}
+
+.fail {
+  color: #b42318;
+  font-weight: bold;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 10px;
+  border: 1px solid #d9dee3;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: #eef2f5;
+}
+
+@media (max-width: 600px) {
+  main {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    border: 0;
+    border-radius: 0;
+  }
+
+  table {
+    font-size: 0.85rem;
+  }
+
+  th,
+  td {
+    padding: 6px;
+  }
+}
